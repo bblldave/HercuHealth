@@ -1,0 +1,77 @@
+@startuml HercuHealth_DB_Schema
+
+Class User {
+  +String id
+  +String username
+  +String email
+  +String passwordHash
+  
+}
+
+Class UserProfile {
+  +userId
+  +Workout[] workouts
+  +Programs[] programs
+  +ExerciseLog[] logs
+}
+
+class Program {
+  +String programId
+  +String programName
+  +String programDescription
+  +int programDurationWeeks
+  +Week[] weeks
+}
+
+class Week {
+  +int weekNumber
+  +Day[] days
+}
+
+class Day {
+  +String dayOfWeek
+  +Workout[] workouts
+}
+
+class Workout {
+  +String workoutId
+  +String workoutName
+  +Exercise[] exercises
+}
+
+class Exercise {
+  +String exerciseId
+  +String name
+  +String description
+  +String exerciseType (e.g., "sets", "duration", "distance")
+  +int? sets (nullable)
+  +int? reps (nullable)
+  +String? duration (nullable, e.g., "30min")
+  +String? distance (nullable, e.g., "5km")
+  +ExerciseLog[] logs
+}
+
+class ExerciseLog {
+  +String logId
+  +String userId
+  +String exerciseId
+  +DateTime performedDate
+  +int? reps
+  +float? weight
+  +String? duration
+  +String? distance
+}
+
+Program "1" -- "0..*" Week
+Week "1" -- "1..7" Day
+Day "0" -- "*" Workout
+Workout "1" -- "1..*" Exercise
+Exercise "1" -- "0..*" ExerciseLog
+
+
+User "1" -- "1" UserProfile
+UserProfile "1" -- "0..*" Workout
+UserProfile "1" -- "0..*" Program
+UserProfile "1" -- "0..*" ExerciseLog
+
+@enduml
