@@ -1,19 +1,21 @@
 import React from "react";
+import { AiFillClockCircle } from "react-icons/ai";
 
-const HistoryCard = ({ workoutName, duration, onViewLog }) => {
+const HistoryCard = ({ workoutProgram, workoutName, duration, onViewLog }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-2">
+    <div className="bg-white p-4 rounded-lg border mb-2">
       <div className="flex justify-between items-center">
         <div>
+          <p className="text-gray-500">{workoutProgram}</p>
           <h3 className="text-lg font-semibold">{workoutName}</h3>
-          <p className="text-gray-600">Duration: {duration}</p>
+          <p className="text-gray-500 flex"><AiFillClockCircle className="mt-1 mr-1" /> {duration}</p>
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl"
+            onClick={onViewLog}
+          >
+            View Log
+          </button>
         </div>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={onViewLog}
-        >
-          View Log
-        </button>
       </div>
     </div>
   );
