@@ -29,7 +29,7 @@ HercuHealth is a fitness tracking app designed for advanced fitness enthusiasts 
 - Frontend: React (Client)
 - Backend: Node.js, Express (Server)
 - Database: MongoDB
-- Authentication: JSON Web Tokens (JWT)
+- Authentication: Passage passwordless
 - Styling: Tailwind CSS
 
 ## Long-Term Vision

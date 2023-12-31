@@ -2,7 +2,6 @@
 
 ## To Do
 
-- [ ] Design the user interface for the Dashboard.
 - [ ] Implement user authentication and registration logic.
 - [ ] Develop the API for creating and managing workouts and programs.
 - [ ] Write frontend logic for displaying workout and program data.
@@ -20,3 +19,4 @@
 - [x] Set up React environment for the client application.
 - [x] Set up Node.js and Express environment for the server application.
 - [x] Create database schema for users, workouts, and programs.
+- [x] Design the user interface for the Dashboard.

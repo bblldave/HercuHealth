@@ -75,7 +75,7 @@ const HistoryList = () => {
           isWithinInterval(parseISO(workout.dateCompleted), { start, end })
         );
         return (
-          <p key={index} className="px-6 py-2">
+          <div key={index} className="px-6 py-2">
             {formattedStart} - {formattedEnd}
             {workoutsThisWeek.length > 0 ? (
               workoutsThisWeek.map((workout, workoutIndex) => (
@@ -91,7 +91,7 @@ const HistoryList = () => {
                 No workouts this week{" "}
               </p>
             )}
-          </p>
+          </div>
         );
       })}
     </div>

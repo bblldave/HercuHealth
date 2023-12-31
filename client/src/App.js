@@ -1,14 +1,23 @@
-import ActiveProgramsList from "./components/ActiveProgramsList";
-import HistoryCalendar from "./components/HistoryCalendar";
-import HistoryList from "./components/HistoryList";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+
+const App = () => {
   return (
-    <div className="container flex flex-col justify-center align-middle mx-auto">
-      <ActiveProgramsList />
-      <HistoryCalendar />
-      <HistoryList />
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/dashboard' element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </Router>
   );
 }
 

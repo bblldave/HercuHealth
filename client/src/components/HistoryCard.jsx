@@ -7,8 +7,10 @@ const HistoryCard = ({ workoutProgram, workoutName, duration, onViewLog }) => {
       <div className="flex justify-between items-center">
         <div>
           <p className="text-gray-500">{workoutProgram}</p>
-          <h3 className="text-lg font-semibold">{workoutName}</h3>
-          <p className="text-gray-500 flex"><AiFillClockCircle className="mt-1 mr-1" /> {duration}</p>
+          <p className="text-lg font-semibold">{workoutName}</p>
+          <p className="text-gray-500 flex">
+            <AiFillClockCircle className="mt-1 mr-1" /> {duration}
+          </p>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl"
             onClick={onViewLog}

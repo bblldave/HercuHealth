@@ -22,7 +22,7 @@
 
 ### Security
 
-- JWT for secure authentication.
+- Passage passwordless for secure authentication.
 - Encryption and hashing for sensitive data like passwords.
 
 ### Deployment
