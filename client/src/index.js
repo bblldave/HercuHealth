@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NavBar from './components/navBar';
+import { PassageProvider } from '@passageidentity/passage-react';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const passageAppId = process.env.REACT_APP_PASSAGE_APP_ID;
 root.render(
   <React.StrictMode>
-    <NavBar />
-    <App />
+    <PassageProvider appId={passageAppId}>
+      <NavBar />
+      <App />
+    </PassageProvider>
   </React.StrictMode>
 );
 

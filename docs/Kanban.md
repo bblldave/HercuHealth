@@ -2,13 +2,13 @@
 
 ## To Do
 
-- [ ] Implement user authentication and registration logic.
-- [ ] Develop the API for creating and managing workouts and programs.
 - [ ] Write frontend logic for displaying workout and program data.
 - [ ] Set up the server environment and deploy the backend.
 - [ ] Create basic documentation for app usage and features.
 
 ## In Progress
+
+- [ ] Develop the API for creating and managing workouts and programs.
 
 ## Done
 
@@ -20,3 +20,4 @@
 - [x] Set up Node.js and Express environment for the server application.
 - [x] Create database schema for users, workouts, and programs.
 - [x] Design the user interface for the Dashboard.
+- [x] Implement user authentication and registration logic.
