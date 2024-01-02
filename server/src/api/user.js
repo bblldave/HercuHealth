@@ -8,9 +8,9 @@ router.post('/register', passageAuthMiddleware, async (req, res) => {
     let user = res.user;
     user = new User({ email: user.email, passage_id: user.id });
     await user.save();
-    res.status(201).send('User registered successfully');
+    res.status(201).json({message: 'User registered successfully'});
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).json({message: `Server error: ${error}`});
   }
 });
 

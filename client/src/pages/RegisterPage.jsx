@@ -1,5 +1,5 @@
 import { PassageRegister } from "@passageidentity/passage-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -29,8 +29,18 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
+    <div className="container flex flex-col justify-center align-middle mx-auto py-10">
+      <h1 className="text-center font-bold text-4xl p-3">
+        Get Started for free
+      </h1>
+      <p className="text-center text-lg mb-8">
+        No obligations or credit cards required.
+      </p>
       <PassageRegister onSuccess={onSuccess} />
+      <p className="text-center">Already have an account?</p>
+      <Link className="text-center text-blue-600 underline" to="/login">
+        Log In Here
+      </Link>
     </div>
   );
 };
