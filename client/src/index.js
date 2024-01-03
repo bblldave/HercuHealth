@@ -12,7 +12,6 @@ const passageAppId = process.env.REACT_APP_PASSAGE_APP_ID;
 root.render(
   <React.StrictMode>
     <PassageProvider appId={passageAppId}>
-      <NavBar />
       <App />
     </PassageProvider>
   </React.StrictMode>
