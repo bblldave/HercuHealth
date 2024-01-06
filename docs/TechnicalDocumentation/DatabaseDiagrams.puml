@@ -2,9 +2,8 @@
 
 Class User {
   +String id
-  +String username
   +String email
-  +String passwordHash
+  +String passageId
   
 }
 

@@ -1,6 +1,11 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const userRoutes = require('./api/user');
+const userProfileRoutes = require('./api/userProfile');
+const programRoutes = require('./api/program');
+const weekRoutes = require('./api/week');
+const dayRoutes = require('./api/day');
+const workoutRoutes = require('./api/workout');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -17,6 +22,11 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
+app.use('/api/userProfile', userProfileRoutes);
+app.use('/api/programs', programRoutes);
+app.use('/api/weeks', weekRoutes);
+app.use('/api/days/', dayRoutes);
+app.use('/api/workouts/', workoutRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
