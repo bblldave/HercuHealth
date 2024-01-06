@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavMenu = () => {
   return (
-    <div className="container text-white flex flex-col justify-center align-middle mx-auto py-10">
+    <div className="container flex flex-col justify-center align-middle mx-auto py-10 fixed top-50 left-50 bg-white h-screen">
       <ul>
         <li className="text-center p-2">
           <Link to="/dashboard">Dashboard</Link>

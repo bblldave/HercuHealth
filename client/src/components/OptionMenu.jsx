@@ -1,9 +1,35 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-const OptionMenu = () => {
+const OptionMenu = ({ isOpen, onClose, buttonRef }) => {
+  const menuRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(event.target) && 
+          buttonRef.current && !buttonRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+  
+    if (isOpen) {
+      // Attach the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      // Remove the event listener on cleanup
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose, buttonRef, menuRef]);
+
+  if (!isOpen) return null;
+
   return (
-    <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+    <div
+      ref={menuRef}
+      className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20"
+    >
       <ul>
         <li className="text-center p-2">
           <Link to="/login">Log in</Link>
