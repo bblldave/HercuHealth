@@ -8,8 +8,6 @@
 
 ## In Progress
 
-- [ ] Develop the API for creating and managing workouts and programs.
-
 ## Done
 
 - [x] Determine project scope and MVP features.
@@ -21,3 +19,4 @@
 - [x] Create database schema for users, workouts, and programs.
 - [x] Design the user interface for the Dashboard.
 - [x] Implement user authentication and registration logic.
+- [x] Develop the API for creating and managing workouts and programs.
