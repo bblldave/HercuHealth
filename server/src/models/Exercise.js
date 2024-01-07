@@ -8,6 +8,7 @@ const exerciseSchema = new mongoose.Schema({
   reps: { type: Number, required: function () { return this.exerciseType === 'sets'; } },
   duration: { type: String, required: function () { return this.exerciseType === 'duration'; } }, // e.g., '30min'
   distance: { type: String, required: function () { return this.exerciseType === 'distance'; } }, // e.g., '5km'
+  workout: { type: mongoose.Schema.Types.ObjectId, ref: 'Workout', required: false },
   logs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ExerciseLog' }]
 });
 

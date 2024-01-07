@@ -15,7 +15,17 @@ router.get('/:programId', passageAuthMiddleware, async (req, res) => {
 
         populate: {
           path: 'workouts',
-          model: 'Workout'
+          model: 'Workout',
+
+          populate: {
+            path: 'exercises',
+            model: 'Exercise',
+
+            populate: {
+              path: 'logs',
+              model: 'ExerciseLog'
+            }
+          }
         }
       }
     });
