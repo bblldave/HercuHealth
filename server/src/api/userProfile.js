@@ -24,6 +24,25 @@ router.get('/', passageAuthMiddleware, async (req, res) => {
   }
 });
 
+router.get('/activePrograms', passageAuthMiddleware, async (req, res) => {
+  try {
+    const userPassageId = res.user.id;
+    const user = await User.findOne({ passage_id: userPassageId });
+    const userProfile = await UserProfile.findOne({ userId: user._id }).populate({
+      path: 'activePrograms'
+    });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: 'UserProfile not found' });
+    }
+
+    res.json(userProfile.activePrograms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+});
+
 router.put('/update', passageAuthMiddleware, async (req, res) => {
   try {
     const userPassageId = res.user.id;

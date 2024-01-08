@@ -1,11 +1,15 @@
 import React from "react";
 
-const ProgramCard = ({ programName, exercisesCompleted, exerciseCount }) => {
+const ProgramCard = ({
+  name,
+  exercisesCompleted = 5,
+  exerciseCount = 20,
+}) => {
   const progressPercentage = (exercisesCompleted / exerciseCount) * 100;
 
   return (
     <div className="bg-white p-4 rounded-xl mx-6 my-2 border ">
-      <h3 className="text-lg font-semibold">{programName}</h3>
+      <h3 className="text-lg font-semibold">{name}</h3>
       <div className="flex flex-row align-middle justify-center">
         <span className="text-sm mr-2">
           {exercisesCompleted}/{exerciseCount}
