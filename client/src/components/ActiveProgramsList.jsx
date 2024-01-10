@@ -1,9 +1,13 @@
 import React from "react";
 import ProgramCard from "./ProgramCard";
-import useActivePrograms from "../hooks/useActivePrograms";
+import useFetchData from "../api/useFetchData";
 
 const ActiveProgramsList = () => {
-  const { activePrograms, loading, error } = useActivePrograms();
+  const {
+    data: activePrograms,
+    loading,
+    error,
+  } = useFetchData("getActivePrograms");
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

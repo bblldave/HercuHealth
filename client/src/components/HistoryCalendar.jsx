@@ -6,38 +6,32 @@ import {
   startOfMonth,
   endOfMonth,
   eachDayOfInterval,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval as eachDayOfTheWeek,
 } from "date-fns";
 
-const completedWorkouts = [
-  {
-    workoutName: "Power in Gym: Beginner Back & Biceps",
-    duration: "35:24",
-    dateCompleted: "2023-12-15",
-  },
-  {
-    workoutName: "Power in Gym: Beginner Back & Biceps",
-    duration: "35:24",
-    dateCompleted: "2023-12-16",
-  },
-  {
-    workoutName: "Power in Gym: Beginner Back & Biceps",
-    duration: "35:24",
-    dateCompleted: "2023-12-09",
-  },
-];
-
-const HistoryCalendar = () => {
+const HistoryCalendar = ({ completedWorkouts }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const startDay = startOfMonth(currentMonth);
-  const endDay = endOfMonth(currentMonth);
+  const startDay = startOfWeek(startOfMonth(currentMonth));
+  const endDay = endOfWeek(endOfMonth(currentMonth));
   const daysInMonth = eachDayOfInterval({ start: startDay, end: endDay });
+
+  // Function to create the header with day abbreviations (e.g., Sun, Mon, Tue, ...)
+  const renderDayHeaders = () => {
+    const dayHeaders = eachDayOfTheWeek({ start: startDay, end: endOfWeek(startDay) });
+    return dayHeaders.map((day, index) => (
+      <div key={index} className="text-center">
+        {format(day, "EEE")}
+      </div>
+    ));
+  };
 
   const isWorkoutCompleted = (date) => {
     const workoutDates = completedWorkouts.map((workout) => {
-      return workout.dateCompleted;
+      return format(new Date(workout.dateCompleted), "yyyy-MM-dd");
     });
-    // Example format for comparison: '2023-01-04'
     const formattedDate = format(date, "yyyy-MM-dd");
     return workoutDates.includes(formattedDate);
   };
@@ -60,13 +54,24 @@ const HistoryCalendar = () => {
           <h2 className="text-lg font-semibold">
             {format(currentMonth, "MMMM yyyy")}
           </h2>
-          
+          <div>
+            <button
+              onClick={previousMonth}
+              className="p-1 mx-1 font-bold text-2xl"
+            >
+              {"<"}
+            </button>
+            <button onClick={nextMonth} className="p-1 mx-1 font-bold text-2xl">
+              {">"}
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-7 gap-1">
+          {renderDayHeaders()}
           {daysInMonth.map((day, index) => (
             <div
               key={index}
-              className={`text-center p-1  rounded-full cursor-pointer ${
+              className={`text-center p-1 rounded-full cursor-pointer ${
                 isWorkoutCompleted(day)
                   ? "bg-blue-600 text-white"
                   : "hover:bg-blue-200"
@@ -76,14 +81,6 @@ const HistoryCalendar = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-row justify-between">
-            <button onClick={previousMonth} className="p-1 mx-1 font-bold text-2xl">
-              {"<"}
-            </button>
-            <button onClick={nextMonth} className="p-1 mx-1 font-bold text-2xl">
-              {">"}
-            </button>
-          </div>
       </div>
     </>
   );
