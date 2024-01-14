@@ -2,8 +2,9 @@ import React from "react";
 import WeekSelector from "./WeekSelector";
 import { useState } from "react";
 import WorkoutCard from "./WorkoutCard";
+import WeekProgressBar from "./WeekProgressBar";
 
-const ProgramWorkoutWrapper = ({ weeks }) => {
+const ProgramWorkoutWrapper = ({ weeks, isActiveProgram }) => {
   const [selectedWeek, setSelectedWeek] = useState(1);
 
   const decreaseWeek = () => {
@@ -27,13 +28,13 @@ const ProgramWorkoutWrapper = ({ weeks }) => {
         onDecreaseWeek={decreaseWeek}
         onIncreaseWeek={increaseWeek}
       />
-      <h1>WeekProgressBar</h1>
-      <h1>Workout Progress</h1>
-      {weeks[selectedWeek - 1].days.map((day, index) => {
-        return (
-          <WorkoutCard day={day} key={index} dayNumber={index + 1} />
-        );
-      })}
+      {isActiveProgram && (
+        <WeekProgressBar workoutsCompleted={3} totalWorkouts={5} />
+      )}
+        {weeks[selectedWeek - 1].days.map((day, index) => (
+              <WorkoutCard day={day} dayNumber={index + 1} className="flex-grow" />
+        ))}
+
     </div>
   );
 };

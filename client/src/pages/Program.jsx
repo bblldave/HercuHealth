@@ -27,13 +27,13 @@ const Program = () => {
   return (
     <div className="container mx-auto flex flex-col justify-center align-middle">
       <ProgramHeadingCard programName={program.name} />
-      <h1>
+      <p className="mx-7 my-4">
         You've reached phase 3! Chris and Luke are going to help you take the
         strength, size and skills you’ve developed, and push it even further.
         Get the lowdown on all the new lifts via the tutorials and stretching
         sessions before you raise a barbell. Ready to sweat it out with Bobby?
-      </h1>
-      <ProgramWorkoutWrapper weeks={program.weeks} />
+      </p>
+      <ProgramWorkoutWrapper weeks={program.weeks} isActiveProgram={true} />
     </div>
   );
 };

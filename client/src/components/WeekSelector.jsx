@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const WeekSelector = ({ weekNumber, onDecreaseWeek, onIncreaseWeek }) => {
   return (
-    <div className="flex justify-between align-middle mx-7 my-4">
+    <div className="flex justify-between align-middle mx-7 mt-4">
       <button className="font-bold text-xl" onClick={onDecreaseWeek}>
         {"<"}
       </button>
