@@ -15,8 +15,13 @@ const getWorkoutHistory = () => {
   return dataFetcher.get('userProfile/workoutHistory');
 }
 
+const getActiveProgramById = (id) => {
+  return dataFetcher.get(`programs/${id}`);
+}
+
 const endPoints = {
   getActivePrograms: getActivePrograms,
+  getActiveProgramById: getActiveProgramById,
   getWorkoutHistory: getWorkoutHistory
 }
 

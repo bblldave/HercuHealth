@@ -10,65 +10,22 @@ import {
 } from "date-fns";
 import { useEffect, useState } from "react";
 import HistoryCard from "./HistoryCard";
+import { getWeeks } from "../utils/dateUtils";
 
 const HistoryList = ({ completedWorkouts }) => {
   const [weeks, setWeeks] = useState([]);
 
   useEffect(() => {
-    const getWeeks = (startDateString, endDateString) => {
-      const parseLocalDate = (dateStr) => {
-        const [year, month, day] = dateStr.split("-").map(Number);
-        return new Date(year, month - 1, day);
-      };
-
-      const startDate = parseLocalDate(startDateString);
-      const endDate = parseLocalDate(endDateString);
-
-      const getStartOfWeek = (date) => {
-        const dayOfWeek = date.getDay(); // Get day of week (0-6, Sunday is 0)
-        const startOfWeek = new Date(date);
-        startOfWeek.setDate(date.getDate() - dayOfWeek); // Go back to the last Sunday
-        return startOfWeek;
-      };
-
-      const getEndOfWeek = (date) => {
-        const dayOfWeek = date.getDay();
-        const endOfWeek = new Date(date);
-        endOfWeek.setDate(date.getDate() + (6 - dayOfWeek)); // Go forward to the next Saturday
-        return endOfWeek;
-      };
-
-      const startOfWeek = getStartOfWeek(startDate);
-      const endOfWeek = getEndOfWeek(endDate);
-
-      const weeks = [];
-      let currentWeekStart = new Date(startOfWeek);
-
-      // Iterate from the start week to the end week
-      while (currentWeekStart <= endOfWeek) {
-        weeks.push(new Date(currentWeekStart));
-        currentWeekStart.setDate(currentWeekStart.getDate() + 7); // Move to the start of the next week
-      }
-
-      return weeks;
-    };
-
     if (completedWorkouts.length > 0) {
-      const sortedWorkouts = completedWorkouts.sort((a, b) => {
-        if (a.dateCompleted < b.dateCompleted) {
-          return -1;
-        }
-        if (a.dateCompleted > b.dateCompleted) {
-          return 1;
-        }
-        return 0;
-      });
+      const sortedWorkouts = [...completedWorkouts].sort(
+        (a, b) => new Date(a.dateCompleted) - new Date(b.dateCompleted)
+      );
       const workoutStart = format(
         sortedWorkouts[0].dateCompleted,
         "yyyy-MM-dd"
       );
       const workoutEnd = format(
-        sortedWorkouts[completedWorkouts.length - 1].dateCompleted,
+        sortedWorkouts[sortedWorkouts.length - 1].dateCompleted,
         "yyyy-MM-dd"
       );
 
@@ -78,18 +35,25 @@ const HistoryList = ({ completedWorkouts }) => {
     }
   }, [completedWorkouts]);
 
+  const getWorkoutsForWeek = (week, completedWorkouts) => {
+    const start = startOfWeek(week);
+    const end = endOfWeek(week);
+    const formattedStart = format(start, "MM/dd/yy");
+    const formattedEnd = format(end, "MM/dd/yy");
+
+    const workoutsThisWeek = completedWorkouts.filter((workout) =>
+      isWithinInterval(parseISO(workout.dateCompleted), { start, end })
+    );
+
+    return { formattedStart, formattedEnd, workoutsThisWeek };
+  };
+
   return (
     <div>
       <h2 className="text-lg font-bold px-6 py-2 mt-8">History</h2>
       {weeks.map((week, index) => {
-        const start = startOfWeek(week);
-        const end = endOfWeek(week);
-        const formattedStart = format(start, "MM/dd/yy");
-        const formattedEnd = format(end, "MM/dd/yy");
-
-        const workoutsThisWeek = completedWorkouts.filter((workout) =>
-          isWithinInterval(parseISO(workout.dateCompleted), { start, end })
-        );
+        const { formattedStart, formattedEnd, workoutsThisWeek } =
+          getWorkoutsForWeek(week, completedWorkouts);
         return (
           <div key={index} className="px-6 py-2">
             {formattedStart} - {formattedEnd}

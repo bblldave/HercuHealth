@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { endPoints } from '../api/dataFetcher';
 
-const useFetchData = (identifier) => {
+const useFetchData = (identifier, id) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const useFetchData = (identifier) => {
     }
     
     setLoading(true);
-    endPoints[identifier]()
+    endPoints[identifier](id)
       .then(response => {
         setData(response.data);
         setError(null);

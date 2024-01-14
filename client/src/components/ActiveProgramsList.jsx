@@ -1,6 +1,7 @@
 import React from "react";
 import ProgramCard from "./ProgramCard";
 import useFetchData from "../api/useFetchData";
+import { Link } from "react-router-dom";
 
 const ActiveProgramsList = () => {
   const {
@@ -16,7 +17,9 @@ const ActiveProgramsList = () => {
     <div>
       <h2 className="text-lg font-bold px-6 py-2">Active Programs</h2>
       {activePrograms.map((program, index) => (
-        <ProgramCard key={index} {...program} />
+        <Link to={`/program/${program._id}`} key={index}>
+          <ProgramCard key={index} {...program} />
+        </Link>
       ))}
     </div>
   );
