@@ -3,7 +3,7 @@ import { AiFillClockCircle } from "react-icons/ai";
 
 const HistoryCard = ({ workoutProgram, workoutName, duration, onViewLog }) => {
   return (
-    <div className="bg-white p-4 rounded-lg border mb-2">
+    <div className="bg-white rounded-lg border mb-2">
       <div className="flex justify-between items-center">
         <div>
           <p className="text-gray-500">{workoutProgram}</p>

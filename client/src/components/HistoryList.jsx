@@ -61,9 +61,9 @@ const HistoryList = ({ completedWorkouts }) => {
               workoutsThisWeek.map((workout) => (
                 <HistoryCard
                   key={workout._id}
-                  workoutProgram={workout.programId.name}
-                  workoutName={workout.workoutId.workoutName}
-                  duration={workout.duration}
+                  workoutProgram={workout.programId?.name}
+                  workoutName={workout.workoutId?.workoutName}
+                  duration={workout?.duration}
                 />
               ))
             ) : (

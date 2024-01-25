@@ -3,7 +3,7 @@ import React from "react";
 const WeekProgressBar = ({workoutsCompleted, totalWorkouts}) => {
   const progressPercentage = (workoutsCompleted / totalWorkouts) * 100;
   return (
-    <div className="flex flex-col align-middle justify-center mx-7 mb-10">
+    <div className="flex flex-col align-middle justify-center mb-10">
       <span className="text-sm mx-auto text-gray-400 mb-2">
         {workoutsCompleted}/{totalWorkouts}
       </span>

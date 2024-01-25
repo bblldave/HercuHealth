@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProgramHeadingCard from "../components/ProgramHeadingCard";
+import HeadingCard from "../components/HeadingCard";
 import useFetchData from "../api/useFetchData";
 import ProgramWorkoutWrapper from "../components/ProgramWorkoutWrapper";
+import PageContainer from "../components/PageContainer";
 
 const Program = () => {
   const [program, setProgram] = React.useState(null);
@@ -25,16 +26,14 @@ const Program = () => {
   if (!program) return <div>Program not found</div>;
 
   return (
-    <div className="container mx-auto flex flex-col justify-center align-middle">
-      <ProgramHeadingCard programName={program.name} />
-      <p className="mx-7 my-4">
-        You've reached phase 3! Chris and Luke are going to help you take the
-        strength, size and skills you’ve developed, and push it even further.
-        Get the lowdown on all the new lifts via the tutorials and stretching
-        sessions before you raise a barbell. Ready to sweat it out with Bobby?
-      </p>
+    <PageContainer>
+      <HeadingCard title="Program" header={program.name} />
+      <pre className="my-4 whitespace-pre-line font-sans break-words">
+        {program.description ? program.description : "No description"}
+      </pre>
+
       <ProgramWorkoutWrapper weeks={program.weeks} isActiveProgram={true} />
-    </div>
+    </PageContainer>
   );
 };
 

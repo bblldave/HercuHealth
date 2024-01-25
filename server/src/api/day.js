@@ -12,7 +12,7 @@ router.post('/create', passageAuthMiddleware, async (req, res) => {
     const newDay = new Day({
       week,
       dayOfWeek,
-      workouts
+      workouts: workouts.map(workout => ({ workout, completed: false }))
     });
 
     await newDay.save();

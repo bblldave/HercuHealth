@@ -9,18 +9,14 @@ router.get('/:programId', passageAuthMiddleware, async (req, res) => {
     const programId = req.params.programId;
     const program = await Program.findById(programId).populate({
       path: 'weeks',
-
       populate: {
         path: 'days',
-
         populate: {
-          path: 'workouts',
+          path: 'workouts.workout',
           model: 'Workout',
-
           populate: {
             path: 'exercises',
             model: 'Exercise',
-
             populate: {
               path: 'logs',
               model: 'ExerciseLog'

@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import RegisterPage from './pages/RegisterPage';
 import NavBar from './components/NavBar';
 import Program from './pages/Program';
+import Workout from './pages/Workout';
 
 
 const App = () => {
@@ -25,6 +26,11 @@ const App = () => {
           <Route path='/program/:id' element={
             <ProtectedRoute>
               <Program />
+            </ProtectedRoute>
+          } />
+          <Route path='/workout/:id' element={
+            <ProtectedRoute>
+              <Workout />
             </ProtectedRoute>
           } />
         </Routes>
