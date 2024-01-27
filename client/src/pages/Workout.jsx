@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import HeadingCard from "../components/HeadingCard";
+import HeadingCard from "../components/shared/HeadingCard";
 import useFetchData from "../api/useFetchData";
-import WorkoutDetails from "../components/WorkoutDetails";
+import WorkoutDetails from "../components/workouts/WorkoutDetails";
 
 const Workout = () => {
   const [workout, setWorkout] = React.useState(null);
@@ -36,7 +36,7 @@ const Workout = () => {
         model
       </pre>
 
-      <WorkoutDetails />
+      <WorkoutDetails equipment={workout.equipment} targets={workout.targets} duration={workout.durationMinutes} />
 
       <button className="border-2 border-blue-400 hover:bg-blue-500 text-blue-400 hover:text-white font-bold py-2 px-4 mt-4 rounded-xl bg-transparent">
         View Logs

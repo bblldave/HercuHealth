@@ -1,6 +1,6 @@
 import React from "react";
-import ProgramCard from "./ProgramCard";
-import useFetchData from "../api/useFetchData";
+import ProgramCard from "../programs/ProgramCard";
+import useFetchData from "../../api/useFetchData";
 import { Link } from "react-router-dom";
 
 const ActiveProgramsList = () => {

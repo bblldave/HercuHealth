@@ -1,8 +1,6 @@
 import React from "react";
-import ActiveProgramsList from "../components/ActiveProgramsList";
-import HistoryCalendar from "../components/HistoryCalendar";
-import HistoryList from "../components/HistoryList";
-import DashboardHistoryWrapper from "../components/DashboardHistoryWrapper";
+import ActiveProgramsList from "../components/activePrograms/ActiveProgramsList";
+import DashboardHistoryWrapper from "../components/workoutHistory/DashboardHistoryWrapper";
 
 const Dashboard = () => {
   return (

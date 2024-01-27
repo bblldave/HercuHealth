@@ -7,13 +7,15 @@ const passageAuthMiddleware = require('../utils/passageMiddleware');
 // POST: Create a new Workout
 router.post('/create', passageAuthMiddleware, async (req, res) => {
   try {
-    const { workoutName, exercises, day, durationMinutes } = req.body;
+    const { workoutName, exercises, day, durationMinutes, equipment, targets } = req.body;
 
     const newWorkout = new Workout({
       workoutName,
       exercises,
       day,
       durationMinutes,
+      equipment,
+      targets,
     });
 
     await newWorkout.save();

@@ -4,7 +4,7 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import RegisterPage from './pages/RegisterPage';
-import NavBar from './components/NavBar';
+import NavBar from './components/layout/NavBar';
 import Program from './pages/Program';
 import Workout from './pages/Workout';
 

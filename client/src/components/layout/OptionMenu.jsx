@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import useUserStore from "../stores/userStore";
+import useUserStore from "../../stores/userStore";
 
 const OptionMenu = ({ isOpen, onClose, buttonRef }) => {
   const menuRef = useRef();

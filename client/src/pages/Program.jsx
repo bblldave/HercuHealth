@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import HeadingCard from "../components/HeadingCard";
+import HeadingCard from "../components/shared/HeadingCard";
 import useFetchData from "../api/useFetchData";
-import ProgramWorkoutWrapper from "../components/ProgramWorkoutWrapper";
-import PageContainer from "../components/PageContainer";
+import ProgramWorkoutWrapper from "../components/programs/ProgramWorkoutWrapper";
+import PageContainer from "../components/layout/PageContainer";
 
 const Program = () => {
   const [program, setProgram] = React.useState(null);

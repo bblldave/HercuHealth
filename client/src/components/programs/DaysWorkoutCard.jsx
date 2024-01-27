@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillClockCircle } from "react-icons/ai";
-import WorkoutStatusToggle from "./WorkoutStatusToggle";
+import WorkoutStatusToggle from "../workouts/WorkoutStatusToggle";
 
 const DaysWorkoutCard = ({
   day: initialDay,
@@ -31,7 +31,10 @@ const DaysWorkoutCard = ({
                 />
               )}
 
-              <Link to={`/workout/${workout.workout?._id}`} className="p-4 rounded-xl ml-2 my-2 border flex-1">
+              <Link
+                to={`/workout/${workout.workout?._id}`}
+                className="p-4 rounded-xl ml-2 my-2 border flex-1"
+              >
                 <div>
                   <div className="flex items-center">
                     <p className="font-semibold">

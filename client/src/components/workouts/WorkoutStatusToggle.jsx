@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const WorkoutStatusToggle = ({ completed, onToggle }) => {
   const [loading, setLoading] = useState(false);

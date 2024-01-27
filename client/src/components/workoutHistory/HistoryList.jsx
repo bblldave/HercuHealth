@@ -10,7 +10,7 @@ import {
 } from "date-fns";
 import { useEffect, useState } from "react";
 import HistoryCard from "./HistoryCard";
-import { getWeeks } from "../utils/dateUtils";
+import { getWeeks } from "../../utils/dateUtils";
 
 const HistoryList = ({ completedWorkouts }) => {
   const [weeks, setWeeks] = useState([]);

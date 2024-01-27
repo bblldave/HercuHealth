@@ -1,7 +1,7 @@
 import React from "react";
 import HistoryCalendar from "./HistoryCalendar";
 import HistoryList from "./HistoryList";
-import useFetchData from "../api/useFetchData";
+import useFetchData from "../../api/useFetchData";
 
 const DashboardHistoryWrapper = () => {
   const {
@@ -15,7 +15,7 @@ const DashboardHistoryWrapper = () => {
   return (
     <>
       <HistoryCalendar completedWorkouts={workoutHistory} />
-      <HistoryList completedWorkouts={workoutHistory}/>
+      <HistoryList completedWorkouts={workoutHistory} />
     </>
   );
 };
