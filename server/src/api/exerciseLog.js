@@ -2,12 +2,15 @@ const express = require('express');
 const router = express.Router();
 const ExerciseLog = require('../models/ExerciseLog');
 const Exercise = require('../models/Exercise');
+const User = require('../models/User');
 const passageAuthMiddleware = require('../utils/passageMiddleware');
 
 // POST: Create a new ExerciseLog
 router.post('/create', passageAuthMiddleware, async (req, res) => {
   try {
-    const { user, exercise, performedDate, reps, weight, duration, distance } = req.body;
+    const { exercise, performedDate, reps, weight, duration, distance } = req.body;
+    const userPassageId = res.user.id;
+    const user = await User.findOne({ passage_id: userPassageId });
 
     const newExerciseLog = new ExerciseLog({
       user,

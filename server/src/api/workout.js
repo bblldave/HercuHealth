@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Workout = require('../models/Workout');
+const { Workout } = require('../models/Workout');
 const Day = require('../models/Day');
 const passageAuthMiddleware = require('../utils/passageMiddleware');
 
@@ -33,7 +33,17 @@ router.post('/create', passageAuthMiddleware, async (req, res) => {
 router.get('/:workoutId', passageAuthMiddleware, async (req, res) => {
   try {
     const workoutId = req.params.workoutId;
-    const workout = await Workout.findById(workoutId);
+    const workout = await Workout.findById(workoutId)
+      .populate({
+        path: 'exercises',
+        populate: {
+          path: 'exercise',
+          populate: {
+            path: 'logs',
+            options: { sort: { 'performedDate': -1 }, limit: 3 }
+          }
+        }
+      });
 
     if (!workout) {
       return res.status(404).json({ message: 'Workout not found' });
