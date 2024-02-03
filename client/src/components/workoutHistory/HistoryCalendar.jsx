@@ -10,6 +10,8 @@ import {
   endOfWeek,
   eachDayOfInterval as eachDayOfTheWeek,
 } from "date-fns";
+import { AiOutlineCaretRight } from "react-icons/ai";
+import { AiOutlineCaretLeft } from "react-icons/ai";
 
 const HistoryCalendar = ({ completedWorkouts }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -20,7 +22,10 @@ const HistoryCalendar = ({ completedWorkouts }) => {
 
   // Function to create the header with day abbreviations (e.g., Sun, Mon, Tue, ...)
   const renderDayHeaders = () => {
-    const dayHeaders = eachDayOfTheWeek({ start: startDay, end: endOfWeek(startDay) });
+    const dayHeaders = eachDayOfTheWeek({
+      start: startDay,
+      end: endOfWeek(startDay),
+    });
     return dayHeaders.map((day, index) => (
       <div key={index} className="text-center">
         {format(day, "EEE")}
@@ -59,10 +64,10 @@ const HistoryCalendar = ({ completedWorkouts }) => {
               onClick={previousMonth}
               className="p-1 mx-1 font-bold text-2xl"
             >
-              {"<"}
+              <AiOutlineCaretLeft />
             </button>
             <button onClick={nextMonth} className="p-1 mx-1 font-bold text-2xl">
-              {">"}
+              <AiOutlineCaretRight />
             </button>
           </div>
         </div>

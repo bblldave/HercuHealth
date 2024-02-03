@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeadingCard from "../components/shared/HeadingCard";
 import useFetchData from "../api/useFetchData";
 import WorkoutDetails from "../components/workouts/WorkoutDetails";
+import ExerciseList from "../components/exercises/ExerciseList";
+import LogModal from "../components/exerciseLogs/LogModal";
 
 const Workout = () => {
   const [workout, setWorkout] = React.useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { id: workoutId } = useParams();
 
@@ -20,6 +23,14 @@ const Workout = () => {
       setWorkout(workoutData);
     }
   }, [workoutId, workoutData]);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -36,14 +47,23 @@ const Workout = () => {
         model
       </pre>
 
-      <WorkoutDetails equipment={workout.equipment} targets={workout.targets} duration={workout.durationMinutes} />
+      <WorkoutDetails
+        equipment={workout.equipment}
+        targets={workout.targets}
+        duration={workout.durationMinutes}
+      />
 
-      <button className="border-2 border-blue-400 hover:bg-blue-500 text-blue-400 hover:text-white font-bold py-2 px-4 mt-4 rounded-xl bg-transparent">
+      <button
+        onClick={handleOpenModal}
+        className="border-2 border-blue-400 hover:bg-blue-500 text-blue-400 hover:text-white font-bold py-2 px-4 mt-4 rounded-xl bg-transparent"
+      >
         View Logs
       </button>
 
+      {isModalOpen && <LogModal onClose={handleCloseModal} workout={workout} />}
+
       <h2 className="text-2xl font-bold py-2 mt-8">Exercises</h2>
-      <div>Exercise List</div>
+      <ExerciseList exercises={workout.exercises} />
     </div>
   );
 };

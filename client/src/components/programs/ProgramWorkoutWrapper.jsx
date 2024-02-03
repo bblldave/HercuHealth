@@ -21,7 +21,7 @@ const ProgramWorkoutWrapper = ({ weeks, isActiveProgram }) => {
   };
 
   const increaseWeek = () => {
-    if (selectedWeek < weekData.length - 1) {
+    if (selectedWeek < weekData.length) {
       setSelectedWeek(selectedWeek + 1);
     }
   };

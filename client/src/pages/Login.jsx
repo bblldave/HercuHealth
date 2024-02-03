@@ -1,4 +1,4 @@
-import { PassageLogin } from "@passageidentity/passage-react/dist";
+import { PassageLogin } from "@passageidentity/passage-react";
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../stores/userStore";
 
