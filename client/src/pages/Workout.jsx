@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import HeadingCard from "../components/shared/HeadingCard";
 import useFetchData from "../api/useFetchData";
@@ -11,6 +12,8 @@ const Workout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { id: workoutId } = useParams();
+
+  const navigate = useNavigate();
 
   const {
     data: workoutData,
@@ -39,7 +42,9 @@ const Workout = () => {
   return (
     <div className="container mx-auto flex flex-col justify-center align-middle p-4">
       <HeadingCard title="Workout" header={workout.workoutName} />
-      <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl">
+      <button 
+        onClick={() => navigate('/workingOut', { state: { workout } })}
+        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl">
         Start Workout
       </button>
       <pre className=" my-4 whitespace-pre-line font-sans break-words">
@@ -60,7 +65,7 @@ const Workout = () => {
         View Logs
       </button>
 
-      {isModalOpen && <LogModal onClose={handleCloseModal} workout={workout} />}
+      {isModalOpen && <LogModal onClose={handleCloseModal} itemId={workout._id} itemType={"workout"} />}
 
       <h2 className="text-2xl font-bold py-2 mt-8">Exercises</h2>
       <ExerciseList exercises={workout.exercises} />

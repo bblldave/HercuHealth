@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ExerciseLog = require('../models/ExerciseLog');
 const Exercise = require('../models/Exercise');
+const { Workout, WorkoutExercise } = require('../models/Workout');
 const User = require('../models/User');
 const passageAuthMiddleware = require('../utils/passageMiddleware');
 
@@ -81,6 +82,56 @@ router.delete('/:exerciseLogId', passageAuthMiddleware, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+});
+
+router.get('/workouts/:workoutId', passageAuthMiddleware, async (req, res) => {
+  try {
+    const workout = await Workout.findById(req.params.workoutId).populate({
+      path: 'exercises',
+      model: 'WorkoutExercise',
+      populate: {
+        path: 'exercise',
+        model: 'Exercise',
+        populate: {
+          path: 'logs',
+          model: 'ExerciseLog',
+          options: { sort: { 'performedDate': -1 }, limit: 3 } // Sort by date in descending order and limit to 3
+        }
+      }
+    });
+
+    const exercisesWithLogs = workout.exercises.map(workoutExercise => workoutExercise.exercise);
+    res.json({ name: workout.workoutName, exercises: exercisesWithLogs });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get exercise logs for an exercise
+router.get('/exercises/:workoutExerciseId', passageAuthMiddleware, async (req, res) => {
+  try {
+    const workoutExercise = await WorkoutExercise.findById(req.params.workoutExerciseId)
+      .populate({
+        path: 'exercise',
+        populate: {
+          path: 'logs',
+          options: { sort: { 'performedDate': -1 }, limit: 3 } // Sort by date in descending order and limit to 3
+        }
+      });
+
+    if (!workoutExercise || !workoutExercise.exercise) {
+      return res.status(404).json({ message: 'WorkoutExercise or Exercise not found' });
+    }
+
+    const exercise = workoutExercise.exercise;
+    res.json({
+      name: exercise.name,
+      exercises: [exercise],
+      exerciseType: workoutExercise.exerciseType
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

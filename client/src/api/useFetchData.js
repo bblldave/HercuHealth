@@ -11,7 +11,7 @@ const useFetchData = (identifier, id) => {
       setError(new Error('Invalid api identifier'));
       return;
     }
-    
+
     setLoading(true);
     endPoints[identifier](id)
       .then(response => {
@@ -24,7 +24,7 @@ const useFetchData = (identifier, id) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [identifier, id]);
 
   return { data, loading, error };
 };

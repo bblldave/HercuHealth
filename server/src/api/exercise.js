@@ -4,6 +4,44 @@ const Exercise = require('../models/Exercise');
 const { Workout, WorkoutExercise } = require('../models/Workout');
 const passageAuthMiddleware = require('../utils/passageMiddleware');
 const apiData = require('../utils/externalApiExercises.json');
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+router.post('/updateLoad', passageAuthMiddleware, async (req, res) => {
+  try {
+    const exercises = apiData.map(async (exercise) => {
+      // Download the gif
+      const response = await axios.get(exercise.gifUrl, { responseType: 'stream' });
+      const pathToSave = path.resolve(__dirname, '../../../client/public/exerciseGifs/', `${exercise.name}.gif`);
+      const writer = fs.createWriteStream(pathToSave);
+
+      response.data.pipe(writer);
+
+      return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      }).then(async () => {
+        // Once the gif is saved, find the exercise document and update the gifUrl
+        const newGifUrl = `/exerciseGifs/${exercise.name}.gif`;
+        const updatedExercise = await Exercise.findOneAndUpdate(
+          { name: exercise.name },
+          { gifUrl: newGifUrl },
+          { new: true }  // This option returns the updated document
+        );
+
+        return updatedExercise;
+      });
+    });
+
+    const updatedExercises = await Promise.all(exercises);
+
+    res.status(200).json({ message: 'Exercises updated successfully', updatedExercises });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
+});
 
 // POST: Load exercises from external API
 router.post('/load', passageAuthMiddleware, async (req, res) => {

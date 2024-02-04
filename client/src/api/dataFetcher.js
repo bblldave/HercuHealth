@@ -21,11 +21,21 @@ const getWorkoutById = (id) => {
   return dataFetcher.get(`workouts/${id}`);
 }
 
+const getExerciseLogsByExerciseId = (id) => {
+  return dataFetcher.get(`exerciseLogs/exercises/${id}`);
+}
+
+const getExerciseLogsByWorkoutId = (id) => { 
+  return dataFetcher.get(`exerciseLogs/workouts/${id}`);
+}
+
 const endPoints = {
   getActivePrograms: getActivePrograms,
   getActiveProgramById: getActiveProgramById,
   getWorkoutHistory: getWorkoutHistory,
   getWorkoutById: getWorkoutById,
+  getExerciseLogsByExerciseId: getExerciseLogsByExerciseId,
+  getExerciseLogsByWorkoutId: getExerciseLogsByWorkoutId
 }
 
 export { dataFetcher, endPoints };

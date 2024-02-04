@@ -16,11 +16,11 @@ const WorkoutStatusToggle = ({ completed, onToggle }) => {
   }
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className="flex align-middle items-center justify-center p-2">
       {completed ? (
-        <AiFillCheckCircle className="text-green-500 mr-2 cursor-pointer" />
+        <AiFillCheckCircle className="text-green-500 cursor-pointer text-2xl" />
       ) : (
-        <AiOutlineCheckCircle className="text-gray-500 mr-2 cursor-pointer" />
+        <AiOutlineCheckCircle className="text-gray-500 cursor-pointer text-2xl" />
       )}
     </div>
   );

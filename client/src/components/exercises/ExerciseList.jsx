@@ -1,12 +1,15 @@
 import React from "react";
-import ExerciseCard from './ExerciseCard';
+import ExerciseCard from "./ExerciseCard";
 
-const ExerciseList = ({exercises}) => {
+const ExerciseList = ({ exercises }) => {
   return (
     <div>
-      {exercises && exercises.map((exercise, index) => (
-        <ExerciseCard key={index} exercise={exercise} />
-      ))}
+      {exercises &&
+        exercises.map((exercise, index) => (
+          <div className="mb-4" key={index}>
+            <ExerciseCard exercise={exercise} openable={true} />
+          </div>
+        ))}
     </div>
   );
 };
