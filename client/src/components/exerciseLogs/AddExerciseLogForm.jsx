@@ -3,8 +3,8 @@ import useUpdateData from "../../api/useUpdateData";
 
 const AddExerciseLogForm = ({ exerciseId, exerciseType, setExercises }) => {
   const [reps, setReps] = useState("");
-  const [lbs, setLbs] = useState("");
-  const [time, setTime] = useState("");
+  const [weight, setWeight] = useState("");
+  const [duration, setDuration] = useState("");
   const [distance, setDistance] = useState("");
   const { updateData } = useUpdateData("addExerciseLog");
 
@@ -12,7 +12,13 @@ const AddExerciseLogForm = ({ exerciseId, exerciseType, setExercises }) => {
     event.preventDefault();
 
     // Prepare the data to be sent to the backend
-    const logData = { reps, lbs, time, distance, exercise: exerciseId };
+    const logData = {
+      reps,
+      weight,
+      duration,
+      distance,
+      exercise: exerciseId,
+    };
 
     try {
       const createdLog = await updateData(["create"], logData);
@@ -56,8 +62,8 @@ const AddExerciseLogForm = ({ exerciseId, exerciseType, setExercises }) => {
               <label className="text-blue-500">Weight (lbs):</label>
               <input
                 type="number"
-                value={lbs}
-                onChange={(e) => setLbs(e.target.value)}
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
                 className="border-2 border-blue-500 rounded-md p-2"
               />
             </div>
@@ -68,8 +74,8 @@ const AddExerciseLogForm = ({ exerciseId, exerciseType, setExercises }) => {
             <label className="text-blue-500">Time:</label>
             <input
               type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
               className="border-2 border-blue-500 rounded-md p-2"
             />
           </div>
@@ -80,8 +86,8 @@ const AddExerciseLogForm = ({ exerciseId, exerciseType, setExercises }) => {
               <label className="text-blue-500">Time:</label>
               <input
                 type="text"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
                 className="border-2 border-blue-500 rounded-md p-2"
               />
             </div>
