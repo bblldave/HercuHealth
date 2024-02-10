@@ -5,14 +5,22 @@ import WorkoutTimer from "../components/workouts/WorkoutTimer";
 import WorkoutControlBar from "../components/workouts/WorkoutControlBar";
 import ScrollableExerciseList from "../components/exercises/ScrollableExerciseList";
 import WorkoutActionModal from "../components/workouts/WorkoutActionModal";
+import useUpdateData from "../api/useUpdateData";
 
 const WorkingOut = () => {
   const [selectedExerciseIndex, setSelectedExerciseIndex] = useState(0);
   const [completedExercises, setCompletedExercises] = useState([]);
   const [isPaused, setIsPaused] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [isWorkingOut, setIsWorkingOut] = useState(true);
   const location = useLocation();
   const workout = location.state.workout;
+  const dayId = location.state.dayId || null;
+  const programId = location.state.programId || null;
+  const { updateData: toggleWorkoutComplete } = useUpdateData(
+    "toggleWorkoutComplete"
+  );
+  const { updateData: addWorkoutHistory } = useUpdateData("addWorkoutHistory");
 
   let blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
@@ -67,6 +75,26 @@ const WorkingOut = () => {
   };
 
   const handleComplete = () => {
+    const formatTime = (timeInSeconds) => {
+      const date = new Date(0);
+      date.setSeconds(timeInSeconds); // specify value for SECONDS here
+      const timeString = date.toISOString().substr(11, 8);
+      return timeString;
+    };
+
+    setIsWorkingOut(false);
+    if (dayId && workout.completed === false) {
+      toggleWorkoutComplete([dayId, workout._id]);
+    }
+
+    const workoutData = {
+      dateCompleted: new Date(),
+      programId: programId,
+      workoutId: workout._id,
+      duration: formatTime(elapsedTime),
+    };
+
+    addWorkoutHistory(["workoutHistory"], workoutData);
     blocker.proceed();
   };
 
@@ -82,9 +110,15 @@ const WorkingOut = () => {
         onComplete={handleComplete}
         onDelete={handleDelete}
       />
-      <WorkoutTimer workoutName={workout.workoutName} isPaused={isPaused} />
-      <div className="border rounded-lg mt-3">
+      <WorkoutTimer
+        workoutName={workout.workoutName}
+        isPaused={isPaused}
+        elapsedTime={elapsedTime}
+        setElapsedTime={setElapsedTime}
+      />
+      <div className="border rounded-lg mt-3 flex justify-center items-center h-full">
         <img
+          className="h-40"
           src={workout.exercises[selectedExerciseIndex].exercise.gifUrl}
           alt={workout.exercises[selectedExerciseIndex].exercise.name}
         />

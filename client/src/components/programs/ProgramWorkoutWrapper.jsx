@@ -5,7 +5,7 @@ import DaysWorkoutCard from "./DaysWorkoutCard";
 import WeekProgressBar from "./WeekProgressBar";
 import useUpdateData from "../../api/useUpdateData";
 
-const ProgramWorkoutWrapper = ({ weeks, isActiveProgram }) => {
+const ProgramWorkoutWrapper = ({ weeks, isActiveProgram, programId }) => {
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [weekData, setWeekData] = useState(weeks);
   const { updateData } = useUpdateData("toggleWorkoutComplete");
@@ -84,6 +84,7 @@ const ProgramWorkoutWrapper = ({ weeks, isActiveProgram }) => {
         <DaysWorkoutCard
           key={index}
           day={day}
+          programId={programId}
           isActiveProgram={isActiveProgram}
           handleWorkoutCompletedToggle={handleCompletedToggle}
           className="flex-grow"

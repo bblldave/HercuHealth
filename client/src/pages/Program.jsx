@@ -32,7 +32,11 @@ const Program = () => {
         {program.description ? program.description : "No description"}
       </pre>
 
-      <ProgramWorkoutWrapper weeks={program.weeks} isActiveProgram={true} />
+      <ProgramWorkoutWrapper
+        weeks={program.weeks}
+        isActiveProgram={true}
+        programId={program._id}
+      />
     </PageContainer>
   );
 };

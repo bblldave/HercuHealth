@@ -7,9 +7,10 @@ import WorkoutDetails from "../components/workouts/WorkoutDetails";
 import ExerciseList from "../components/exercises/ExerciseList";
 import LogModal from "../components/exerciseLogs/LogModal";
 
-const Workout = () => {
+const Workout = (props) => {
   const [workout, setWorkout] = React.useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const programId = props.location?.state?.programId;
 
   const { id: workoutId } = useParams();
 
@@ -42,9 +43,14 @@ const Workout = () => {
   return (
     <div className="container mx-auto flex flex-col justify-center align-middle p-4">
       <HeadingCard title="Workout" header={workout.workoutName} />
-      <button 
-        onClick={() => navigate('/workingOut', { state: { workout } })}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl">
+      <button
+        onClick={() =>
+          navigate("/workingOut", {
+            state: { workout, dayId: workout.day, programId },
+          })
+        }
+        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-xl"
+      >
         Start Workout
       </button>
       <pre className=" my-4 whitespace-pre-line font-sans break-words">
@@ -65,7 +71,13 @@ const Workout = () => {
         View Logs
       </button>
 
-      {isModalOpen && <LogModal onClose={handleCloseModal} itemId={workout._id} itemType={"workout"} />}
+      {isModalOpen && (
+        <LogModal
+          onClose={handleCloseModal}
+          itemId={workout._id}
+          itemType={"workout"}
+        />
+      )}
 
       <h2 className="text-2xl font-bold py-2 mt-8">Exercises</h2>
       <ExerciseList exercises={workout.exercises} />

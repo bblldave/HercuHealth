@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
-const WorkoutTimer = ({ workoutName, isPaused }) => {
+const WorkoutTimer = ({ workoutName, isPaused, elapsedTime, setElapsedTime }) => {
   const [countdown, setCountdown] = useState(5);
-  const [elapsedTime, setElapsedTime] = useState(0);
   const [isWorkoutStarted, setIsWorkoutStarted] = useState(false);
 
   const formatTime = (timeInSeconds) => {

@@ -13,9 +13,14 @@ const addExerciseLog = (path, data) => {
   return dataUpdater.post(`exerciseLogs/${path}`, data);
 }
 
+const addWorkoutHistory = (path, data) => {
+  return dataUpdater.post(`userProfile/${path}`, data);
+}
+
 const endPoints = {
   toggleWorkoutComplete: toggleWorkoutComplete,
-  addExerciseLog: addExerciseLog
+  addExerciseLog: addExerciseLog,
+  addWorkoutHistory: addWorkoutHistory
 }
 
 export { dataUpdater, endPoints };

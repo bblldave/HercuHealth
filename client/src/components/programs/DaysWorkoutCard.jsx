@@ -6,6 +6,7 @@ import WorkoutStatusToggle from "../workouts/WorkoutStatusToggle";
 const DaysWorkoutCard = ({
   day: initialDay,
   isActiveProgram,
+  programId,
   handleWorkoutCompletedToggle,
 }) => {
   const [day, setDay] = useState(initialDay);
@@ -32,7 +33,10 @@ const DaysWorkoutCard = ({
               )}
 
               <Link
-                to={`/workout/${workout.workout?._id}`}
+                to={{
+                  pathname: `/workout/${workout.workout?._id}`,
+                  state: { programId },
+                }}
                 className="p-4 rounded-xl ml-2 my-2 border flex-1"
               >
                 <div>
